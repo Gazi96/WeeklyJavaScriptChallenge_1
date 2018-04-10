@@ -6,9 +6,9 @@ const output = document.getElementsByClassName("main__result")[0];
 const submitForm = document.getElementsByClassName("form__button")[0];
 const exceptionForm = document.getElementsByClassName("form__exception")[0];
 
-submitForm.addEventListener("click", StartApp);
+submitForm.addEventListener("click", startApp);
 
-function StartApp(){
+function startApp(){
 	allNumbers = [];
 	primeNumbers = [];
 	
@@ -18,16 +18,18 @@ function StartApp(){
 
 function checkData(input){
 	try{
+		const inputNumber = parseFloat(input);
+		
 		if(input === ""){
 			throw "Proszę wpisać wartość";
 		}
 		else if(isNaN(input)){
 			throw "Wpisana wartość nie jest liczbą";
 		}
-		else if(!Number.isInteger(input) && input < 0){
+		else if(!Number.isInteger(inputNumber) || inputNumber < 0){
 			throw "Wpisana liczba nie jest liczbą naturalną";	
 		}
-		else if(input > 10000){
+		else if(inputNumber > 10000){
 			throw "Wpisana wartość jest większa od 10000";
 		}
 		else{
@@ -35,7 +37,7 @@ function checkData(input){
 		}
 	}
 	catch (e){
-		LogException(e);
+		logException(e);
 	}
 }
 
@@ -59,11 +61,8 @@ function outputData(allNumbers){
 		}
 	}
 	
-	console.log(allNumbers);
-		
 	for(var i = 0; i < allNumbers.length; i++){
 		if(allNumbers[i] != false){
-			console.log("działa");
 			primeNumbers.push(allNumbers[i]);
 		}
 	}
@@ -71,7 +70,7 @@ function outputData(allNumbers){
 	return primeNumbers.join(", ");
 }
 	
-function LogException(exception){
+function logException(exception){
 	output.textContent = exception;
 }
 
